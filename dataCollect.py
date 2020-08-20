@@ -6,6 +6,7 @@ pages = set()
 
 def getLinks(pageUrl):
   global pages
+
   html = urlopen(f'http://en.wikipedia.org{pageUrl}')
   bs = BeautifulSoup(html,'html.parser')
 
@@ -21,10 +22,9 @@ def getLinks(pageUrl):
       if link.attrs['href'] not in pages:
         newPage = link.attrs['href']
         print('-'*20)
+        print(len(pages))
         print(newPage)
         pages.add(newPage)
-
-        while len(pages) < 3:
-          getLinks(newPage)
+        getLinks(newPage)
 
 getLinks('')
